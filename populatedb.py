@@ -2,12 +2,11 @@ import os
 import pandas as pd
 from sqlalchemy import create_engine, text
 
-# 🔹 Update these with your Postgres details
-DB_HOST = "localhost"         # or server IP
+DB_HOST = "192.168.0.110"
 DB_PORT = "5432"
-DB_NAME = "stocks"
-DB_USER = "stockuser"
-DB_PASS = "yourpassword"
+DB_NAME = "stockagentdb"
+DB_USER = "dbuser"
+DB_PASS = "dbuser@123"
 
 def create_and_populate_db():
     # Create Postgres engine
