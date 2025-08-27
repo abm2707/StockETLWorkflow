@@ -2,13 +2,14 @@ import os
 import yfinance as yf
 import pandas as pd
 
-# Config
-##BASE_DIR = "data"
-##EXCEL_FILE = "data/ind_nifty500list.xlsx"  # Your Excel file
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # folder where script is
+# Project root (where ohlc_fetcher.py is located)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Excel file inside the data folder
 EXCEL_FILE = os.path.join(BASE_DIR, "data", "ind_nifty500list.xlsx")
-SHEET_NAME = "Sheet1"  # Update if needed
-COLUMN_NAME = "FinalSymbol"  # Column name in Excel file
+
+SHEET_NAME = "Sheet1"       # Update if needed
+COLUMN_NAME = "FinalSymbol" # Column name in Excel file
 TIMEFRAMES = {
     "day": "1d"
 }
