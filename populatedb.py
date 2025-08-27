@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 from sqlalchemy import create_engine, text
+from urllib.parse import quote_plus  # <-- for encoding special characters in password
 
 DB_HOST = "192.168.0.110"
 DB_PORT = "5432"
@@ -9,9 +10,12 @@ DB_USER = "dbuser"
 DB_PASS = "dbuser@123"
 
 def create_and_populate_db():
-    # Create Postgres engine
+    # URL-encode password to handle special characters like '@'
+    encoded_pass = quote_plus(DB_PASS)
+
+    # Create Postgres engine with encoded password
     engine = create_engine(
-        f"postgresql+psycopg2://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+        f"postgresql+psycopg2://{DB_USER}:{encoded_pass}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     )
 
     # Create table if not exists
@@ -50,9 +54,9 @@ def create_and_populate_db():
                 df.to_sql(
                     "stock_data",
                     engine,
-                    if_exists="append",  # append to existing table
+                    if_exists="append",
                     index=False,
-                    chunksize=5000,      # insert in batches
+                    chunksize=5000,
                     method="multi"
                 )
                 print(f"✅ Loaded {filename} ({len(df)} rows)")
